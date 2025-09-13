@@ -3,7 +3,7 @@ import Note from "../models/Note.js";
 export const getAllNotes = async (_, res) => {
     try {
         const notes = await Note.find().sort({createdAt : -1});
-        res.status(200).json({Notes : notes});
+        res.status(200).json(notes);
     } catch (error) {
         console.error("Error in getAllNotes controllers : ", error.message);
         res.status(500).json({message : "Internal server error."});
@@ -28,7 +28,7 @@ export const updateNote = async (req, res) => {
         const Id = req.params.id;
         const updatedNote = await Note.findByIdAndUpdate(Id, {title, content}, {new : true});
         if (!updateNote) return res.status(404).json({message : "Note not found."});
-        res.status(201).json({message : "Note updated successfully.", newUpdatedNote : updatedNote});
+        res.status(201).json(updatedNote);
     } catch (error) {
         console.error("Error in updateNote controller : ", error.message);
         res.status(500).json({message : "Internal server error."});
@@ -51,7 +51,7 @@ export const getNoteById = async (req, res) => {
         const Id = req.params.id;
         const getNote = await Note.findById(Id);
         if (!getNote) return res.status(404).json({message : "Note not found."});
-        res.status(201).json({message : "Note founded.", Note : getNote});
+        res.status(201).json(getNote);
     } catch (error) {
         console.error("Error in getNoteById controller : ", error.message);
         res.status(500).json({message : "Internal server error."});
