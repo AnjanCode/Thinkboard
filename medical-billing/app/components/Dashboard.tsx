@@ -80,6 +80,8 @@ export default function Dashboard() {
     toast.success('Logged out successfully');
   };
 
+  console.log('Current activeTab:', activeTab);
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -129,7 +131,10 @@ export default function Dashboard() {
             ].map(({ id, label, icon: Icon }) => (
               <button
                 key={id}
-                onClick={() => setActiveTab(id)}
+                onClick={() => {
+                  console.log('Setting active tab to:', id);
+                  setActiveTab(id);
+                }}
                 className={`flex items-center px-3 py-4 text-sm font-medium border-b-2 ${
                   activeTab === id
                     ? 'border-blue-500 text-blue-600'
